@@ -111,16 +111,6 @@
         </dependency>
     </dependencies>
     <distributionManagement>
-        <repository>
-            <id>talanlabs-releases-repository</id>
-            <url>http://nexus.talanlabs.com/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>talanlabs-snapshots-repository</id>
-            <url>http://nexus.talanlabs.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-    <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
