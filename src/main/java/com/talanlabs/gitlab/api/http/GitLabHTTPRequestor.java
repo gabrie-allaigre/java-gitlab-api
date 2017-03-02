@@ -1,37 +1,17 @@
 package com.talanlabs.gitlab.api.http;
 
-import com.talanlabs.gitlab.api.AuthMethod;
-import com.talanlabs.gitlab.api.GitLabAPI;
-import com.talanlabs.gitlab.api.GitLabAPIException;
-import com.talanlabs.gitlab.api.Paged;
-import com.talanlabs.gitlab.api.TokenType;
+import com.talanlabs.gitlab.api.*;
 import com.talanlabs.gitlab.api.models.commits.GitLabCommit;
 import org.apache.commons.io.IOUtils;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLHandshakeException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.net.*;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -319,7 +299,7 @@ public class GitLabHTTPRequestor {
             url = new URL(urlWithAuth);
         }
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection connection = root.getProxy() != null ? (HttpURLConnection) url.openConnection(root.getProxy()) : (HttpURLConnection) url.openConnection();
         if (apiToken != null && authMethod == AuthMethod.HEADER) {
             connection.setRequestProperty(tokenType.getTokenHeaderName(), String.format(tokenType.getTokenHeaderFormat(), apiToken));
         }
