@@ -8,18 +8,9 @@ public class GitLabCommitComments {
     private GitLabUser author;
     private String path;
     private String note;
-    private Integer name;
-
+    private Integer line;
     @JsonProperty("line_type")
     private String lineType;
-
-    public Integer getName() {
-        return name;
-    }
-
-    public void setName(Integer name) {
-        this.name = name;
-    }
 
     public String getLineType() {
         return lineType;
@@ -51,5 +42,13 @@ public class GitLabCommitComments {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public Integer getLine() {
+        return line;
+    }
+
+    public void setLine(Integer line) {
+        this.line = line;
     }
 }
