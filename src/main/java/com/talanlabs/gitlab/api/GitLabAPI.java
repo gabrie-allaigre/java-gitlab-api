@@ -3,15 +3,11 @@ package com.talanlabs.gitlab.api;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.talanlabs.gitlab.api.http.GitLabHTTPRequestor;
-import com.talanlabs.gitlab.api.services.GitLabAPIBuildVariables;
-import com.talanlabs.gitlab.api.services.GitLabAPIBuilds;
-import com.talanlabs.gitlab.api.services.GitLabAPICommits;
-import com.talanlabs.gitlab.api.services.GitLabAPIProjects;
-import com.talanlabs.gitlab.api.services.GitLabAPIRepositories;
-import com.talanlabs.gitlab.api.services.GitLabAPIUsers;
+import com.talanlabs.gitlab.api.services.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.Proxy;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -39,6 +35,7 @@ public class GitLabAPI {
     private final GitLabAPIBuildVariables gitLabAPIBuildVariables;
 
     private boolean ignoreCertificateErrors = false;
+    private Proxy proxy = null;
     private int requestTimeout = 0;
 
     private GitLabAPI(String hostUrl, String apiToken, TokenType tokenType, AuthMethod method) {
@@ -73,6 +70,15 @@ public class GitLabAPI {
 
     public GitLabAPI setIgnoreCertificateErrors(boolean ignoreCertificateErrors) {
         this.ignoreCertificateErrors = ignoreCertificateErrors;
+        return this;
+    }
+
+    public Proxy getProxy() {
+        return proxy;
+    }
+
+    public GitLabAPI setProxy(Proxy proxy) {
+        this.proxy = proxy;
         return this;
     }
 
