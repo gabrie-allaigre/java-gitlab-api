@@ -9,7 +9,7 @@ Fork de https://github.com/timols/java-gitlab-api
 <dependency>
    <groupId>com.talanlabs</groupId>
    <artifactId>java-gitlab-api</artifactId>
-   <version>1.1.0</version>
+   <version>1.2.0</version>
 </dependency>
 ```
 
