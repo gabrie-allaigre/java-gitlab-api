@@ -115,7 +115,8 @@ public class GitLabAPI {
     }
 
     public String removeAPIUrl(String url) {
-        return url.substring((hostUrl + API_NAMESPACE).length());
+        String withoutHost = url.substring(hostUrl.length());
+        return withoutHost.substring(withoutHost.indexOf(API_NAMESPACE) + API_NAMESPACE.length());
     }
 
     public String sanitize(Object value) {
