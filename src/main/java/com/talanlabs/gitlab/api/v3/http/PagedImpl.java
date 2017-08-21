@@ -124,7 +124,7 @@ public class PagedImpl<T> implements Paged<T> {
 
     @Override
     public Paged<T> nextPage() throws IOException {
-        if (nextPageUrl == null) {
+        if (nextPageUrl == null || results.isEmpty()) {
             return null;
         }
         return gitLabAPI.retrieve().toPaged(gitLabAPI.removeAPIUrl(nextPageUrl), type);
