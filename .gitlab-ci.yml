@@ -33,7 +33,7 @@ deploy_tags_job:
   only:
     - tags
   script:
-    - mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.1:set -DnewVersion=$CI_BUILD_REF_NAME -DgenerateBackupPoms=false
+    - mvn --batch-mode org.codehaus.mojo:versions-maven-plugin:2.1:set -DnewVersion=$CI_COMMIT_REF_NAME -DgenerateBackupPoms=false
     - mvn --batch-mode deploy -Dmaven.test.skip=true -Prelease
   tags:
     - docker
