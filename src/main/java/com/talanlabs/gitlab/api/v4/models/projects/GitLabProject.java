@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.talanlabs.gitlab.api.v4.models.GitlabNamespace;
 import com.talanlabs.gitlab.api.v4.models.GitlabPermission;
 import com.talanlabs.gitlab.api.v4.models.users.GitLabUser;
-
 import java.util.Date;
 import java.util.List;
 

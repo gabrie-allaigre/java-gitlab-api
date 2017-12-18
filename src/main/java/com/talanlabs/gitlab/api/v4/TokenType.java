@@ -2,7 +2,7 @@ package com.talanlabs.gitlab.api.v4;
 
 public enum TokenType {
     PRIVATE_TOKEN("private_token", "PRIVATE-TOKEN", "%s"),
-    ACCESS_TOKEN("access_token", "Authorization", "Basic %s");
+    ACCESS_TOKEN("access_token", "Authorization", "Bearer %s");
 
     private final String tokenParamName;
     private final String tokenHeaderName;

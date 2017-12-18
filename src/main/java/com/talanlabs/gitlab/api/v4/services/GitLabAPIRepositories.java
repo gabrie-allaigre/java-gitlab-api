@@ -1,11 +1,10 @@
 package com.talanlabs.gitlab.api.v4.services;
 
+import com.talanlabs.gitlab.api.Paged;
 import com.talanlabs.gitlab.api.v4.GitLabAPI;
-import com.talanlabs.gitlab.api.v4.Paged;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.repositories.GitLabRepositoryTree;
-
 import java.io.IOException;
 import java.io.Serializable;
 

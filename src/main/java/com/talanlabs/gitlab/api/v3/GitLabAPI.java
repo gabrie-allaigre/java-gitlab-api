@@ -33,6 +33,7 @@ public class GitLabAPI {
     private final GitLabAPIBuilds gitLabAPIBuilds;
     private final GitLabAPIRepositories gitLabAPIRepositories;
     private final GitLabAPIBuildVariables gitLabAPIBuildVariables;
+    private final GitLabAPIGroups gitLabAPIGroups;
 
     private boolean ignoreCertificateErrors = false;
     private Proxy proxy = null;
@@ -50,6 +51,7 @@ public class GitLabAPI {
         this.gitLabAPIBuilds = new GitLabAPIBuilds(this);
         this.gitLabAPIRepositories = new GitLabAPIRepositories(this);
         this.gitLabAPIBuildVariables = new GitLabAPIBuildVariables(this);
+        this.gitLabAPIGroups = new GitLabAPIGroups(this);
     }
 
     public static GitLabAPI connect(String hostUrl, String apiToken) {
@@ -152,5 +154,9 @@ public class GitLabAPI {
 
     public GitLabAPIBuildVariables getGitLabAPIBuildVariables() {
         return gitLabAPIBuildVariables;
+    }
+
+    public GitLabAPIGroups getGitLabAPIGroups() {
+        return gitLabAPIGroups;
     }
 }

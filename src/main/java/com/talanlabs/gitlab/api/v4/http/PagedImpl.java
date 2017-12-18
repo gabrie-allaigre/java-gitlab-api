@@ -1,8 +1,7 @@
 package com.talanlabs.gitlab.api.v4.http;
 
+import com.talanlabs.gitlab.api.Paged;
 import com.talanlabs.gitlab.api.v4.GitLabAPI;
-import com.talanlabs.gitlab.api.v4.Paged;
-
 import java.io.IOException;
 import java.util.List;
 
