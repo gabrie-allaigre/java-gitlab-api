@@ -1,14 +1,13 @@
 package com.talanlabs.gitlab.api.v4.services;
 
+import com.talanlabs.gitlab.api.Paged;
 import com.talanlabs.gitlab.api.v4.GitLabAPI;
-import com.talanlabs.gitlab.api.v4.Paged;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommit;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitComments;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitDiff;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitStatus;
-
 import java.io.IOException;
 import java.io.Serializable;
 

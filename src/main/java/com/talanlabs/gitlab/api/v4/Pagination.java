@@ -1,7 +1,6 @@
 package com.talanlabs.gitlab.api.v4;
 
 import com.talanlabs.gitlab.api.v4.http.Query;
-
 import java.io.UnsupportedEncodingException;
 
 public class Pagination {

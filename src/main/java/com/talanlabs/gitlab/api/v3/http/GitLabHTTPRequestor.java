@@ -1,5 +1,6 @@
 package com.talanlabs.gitlab.api.v3.http;
 
+import com.talanlabs.gitlab.api.Paged;
 import com.talanlabs.gitlab.api.v3.*;
 import com.talanlabs.gitlab.api.v3.models.commits.GitLabCommit;
 import org.apache.commons.io.IOUtils;

@@ -1,7 +1,6 @@
 package com.talanlabs.gitlab.api.v4.http;
 
 import com.talanlabs.gitlab.api.v4.models.GitlabAccessLevel;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;

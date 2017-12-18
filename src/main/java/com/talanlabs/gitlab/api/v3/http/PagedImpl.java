@@ -1,7 +1,7 @@
 package com.talanlabs.gitlab.api.v3.http;
 
 import com.talanlabs.gitlab.api.v3.GitLabAPI;
-import com.talanlabs.gitlab.api.v3.Paged;
+import com.talanlabs.gitlab.api.Paged;
 
 import java.io.IOException;
 import java.util.List;

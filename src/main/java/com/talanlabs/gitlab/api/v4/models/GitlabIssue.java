@@ -2,7 +2,6 @@ package com.talanlabs.gitlab.api.v4.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.talanlabs.gitlab.api.v4.models.users.GitLabUser;
-
 import java.util.Date;
 
 public class GitlabIssue {

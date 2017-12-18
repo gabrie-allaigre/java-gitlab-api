@@ -1,7 +1,7 @@
 package com.talanlabs.gitlab.api.v3.services;
 
 import com.talanlabs.gitlab.api.v3.GitLabAPI;
-import com.talanlabs.gitlab.api.v3.Paged;
+import com.talanlabs.gitlab.api.Paged;
 import com.talanlabs.gitlab.api.v3.Pagination;
 import com.talanlabs.gitlab.api.v3.http.Query;
 import com.talanlabs.gitlab.api.v3.models.repositories.GitLabRepositoryTree;

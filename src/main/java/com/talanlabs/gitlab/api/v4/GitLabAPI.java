@@ -3,8 +3,13 @@ package com.talanlabs.gitlab.api.v4;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.talanlabs.gitlab.api.v4.http.GitLabHTTPRequestor;
-import com.talanlabs.gitlab.api.v4.services.*;
-
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuildVariables;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuilds;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPICommits;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIGroups;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIProjects;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIRepositories;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIUsers;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
@@ -33,6 +38,7 @@ public class GitLabAPI {
     private final GitLabAPIBuilds gitLabAPIBuilds;
     private final GitLabAPIRepositories gitLabAPIRepositories;
     private final GitLabAPIBuildVariables gitLabAPIBuildVariables;
+    private final GitLabAPIGroups gitLabAPIGroups;
 
     private boolean ignoreCertificateErrors = false;
     private Proxy proxy = null;
@@ -50,6 +56,7 @@ public class GitLabAPI {
         this.gitLabAPIBuilds = new GitLabAPIBuilds(this);
         this.gitLabAPIRepositories = new GitLabAPIRepositories(this);
         this.gitLabAPIBuildVariables = new GitLabAPIBuildVariables(this);
+        this.gitLabAPIGroups = new GitLabAPIGroups(this);
     }
 
     public static GitLabAPI connect(String hostUrl, String apiToken) {
@@ -152,5 +159,9 @@ public class GitLabAPI {
 
     public GitLabAPIBuildVariables getGitLabAPIBuildVariables() {
         return gitLabAPIBuildVariables;
+    }
+
+    public GitLabAPIGroups getGitLabAPIGroups() {
+        return gitLabAPIGroups;
     }
 }

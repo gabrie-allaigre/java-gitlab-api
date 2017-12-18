@@ -1,7 +1,6 @@
 package com.talanlabs.gitlab.api.v4.models.commits;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Date;
 import java.util.List;
 

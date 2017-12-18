@@ -1,20 +1,39 @@
 package com.talanlabs.gitlab.api.v4.http;
 
-import com.talanlabs.gitlab.api.v4.*;
+import com.talanlabs.gitlab.api.Paged;
+import com.talanlabs.gitlab.api.v4.AuthMethod;
+import com.talanlabs.gitlab.api.v4.GitLabAPI;
+import com.talanlabs.gitlab.api.v4.GitLabAPIException;
+import com.talanlabs.gitlab.api.v4.TokenType;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommit;
-import org.apache.commons.io.IOUtils;
-
-import javax.net.ssl.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.net.*;
-import java.util.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import org.apache.commons.io.IOUtils;
 
 /**
  * Gitlab HTTP Requestor
