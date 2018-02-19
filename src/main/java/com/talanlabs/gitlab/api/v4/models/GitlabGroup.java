@@ -1,6 +1,7 @@
 package com.talanlabs.gitlab.api.v4.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.talanlabs.gitlab.api.v3.models.GitlabAccessLevel;
 
 public class GitlabGroup {
 
@@ -48,11 +49,11 @@ public class GitlabGroup {
         this.ldapCn = ldapCn;
     }
 
-    public GitlabAccessLevel getLdapAccess() {
-        return GitlabAccessLevel.fromAccessValue(ldapAccess);
+    public com.talanlabs.gitlab.api.v3.models.GitlabAccessLevel getLdapAccess() {
+        return ldapAccess != null ? com.talanlabs.gitlab.api.v3.models.GitlabAccessLevel.fromAccessValue(ldapAccess) : null;
     }
 
     public void setLdapAccess(GitlabAccessLevel ldapGitlabAccessLevel) {
-        this.ldapAccess = ldapGitlabAccessLevel.accessValue;
+        this.ldapAccess = ldapGitlabAccessLevel != null ? ldapGitlabAccessLevel.accessValue : null;
     }
 }
