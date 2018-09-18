@@ -6,6 +6,15 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.GitLabAPIException;
 import com.talanlabs.gitlab.api.v4.TokenType;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommit;
+import org.apache.commons.io.IOUtils;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,14 +35,6 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLHandshakeException;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import org.apache.commons.io.IOUtils;
 
 /**
  * Gitlab HTTP Requestor
@@ -354,7 +355,7 @@ public class GitLabHTTPRequestor {
             }
             reader = new InputStreamReader(wrapStream(connection, connection.getInputStream()), "UTF-8");
             String data = IOUtils.toString(reader);
-            if (type != null) {
+            if (type != null && type != Void.class) {
                 return GitLabAPI.MAPPER.readValue(data, type);
             } else if (instance != null) {
                 return GitLabAPI.MAPPER.readerForUpdating(instance).readValue(data);
@@ -401,7 +402,7 @@ public class GitLabHTTPRequestor {
     }
 
     private void ignoreCertificateErrors() {
-        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return null;
@@ -414,7 +415,7 @@ public class GitLabHTTPRequestor {
             @Override
             public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) {
             }
-        }};
+        } };
         // Added per https://github.com/timols/java-gitlab-api/issues/44
         HostnameVerifier nullVerifier = new HostnameVerifier() {
             @Override

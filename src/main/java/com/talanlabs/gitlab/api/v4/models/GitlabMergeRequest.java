@@ -3,6 +3,7 @@ package com.talanlabs.gitlab.api.v4.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitDiff;
 import com.talanlabs.gitlab.api.v4.models.users.GitLabUser;
+
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class GitlabMergeRequest {
 
     @JsonProperty("created_at")
     private Date createdAt;
+
+    private String sha;
 
     public Integer getId() {
         return id;
@@ -234,5 +237,13 @@ public class GitlabMergeRequest {
 
     public void setChanges(List<GitLabCommitDiff> changes) {
         this.changes = changes;
+    }
+
+    public String getSha() {
+        return sha;
+    }
+
+    public void setSha(String sha) {
+        this.sha = sha;
     }
 }

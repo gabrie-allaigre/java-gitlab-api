@@ -3,13 +3,17 @@ package com.talanlabs.gitlab.api.v4;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.talanlabs.gitlab.api.v4.http.GitLabHTTPRequestor;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIBranches;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuildVariables;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuilds;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPICommits;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIDiscussions;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIGroups;
+import com.talanlabs.gitlab.api.v4.services.GitLabAPIMergeRequests;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIProjects;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIRepositories;
 import com.talanlabs.gitlab.api.v4.services.GitLabAPIUsers;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
@@ -39,6 +43,9 @@ public class GitLabAPI {
     private final GitLabAPIRepositories gitLabAPIRepositories;
     private final GitLabAPIBuildVariables gitLabAPIBuildVariables;
     private final GitLabAPIGroups gitLabAPIGroups;
+    private final GitLabAPIMergeRequests gitLabAPIMergeRequests;
+    private final GitLabAPIDiscussions gitLabAPIDiscussions;
+    private final GitLabAPIBranches gitLabAPIBranches;
 
     private boolean ignoreCertificateErrors = false;
     private Proxy proxy = null;
@@ -57,6 +64,9 @@ public class GitLabAPI {
         this.gitLabAPIRepositories = new GitLabAPIRepositories(this);
         this.gitLabAPIBuildVariables = new GitLabAPIBuildVariables(this);
         this.gitLabAPIGroups = new GitLabAPIGroups(this);
+        this.gitLabAPIMergeRequests = new GitLabAPIMergeRequests(this);
+        this.gitLabAPIDiscussions = new GitLabAPIDiscussions(this);
+        this.gitLabAPIBranches = new GitLabAPIBranches(this);
     }
 
     public static GitLabAPI connect(String hostUrl, String apiToken) {
@@ -163,5 +173,17 @@ public class GitLabAPI {
 
     public GitLabAPIGroups getGitLabAPIGroups() {
         return gitLabAPIGroups;
+    }
+
+    public GitLabAPIMergeRequests getGitLabAPIMergeRequests() {
+        return gitLabAPIMergeRequests;
+    }
+
+    public GitLabAPIDiscussions getGitLabAPIDiscussions() {
+        return gitLabAPIDiscussions;
+    }
+
+    public GitLabAPIBranches getGitLabAPIBranches() {
+        return gitLabAPIBranches;
     }
 }
