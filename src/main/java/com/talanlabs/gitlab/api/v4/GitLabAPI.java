@@ -3,13 +3,8 @@ package com.talanlabs.gitlab.api.v4;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.talanlabs.gitlab.api.v4.http.GitLabHTTPRequestor;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuildVariables;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIBuilds;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPICommits;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIGroups;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIProjects;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIRepositories;
-import com.talanlabs.gitlab.api.v4.services.GitLabAPIUsers;
+import com.talanlabs.gitlab.api.v4.services.*;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
@@ -39,6 +34,9 @@ public class GitLabAPI {
     private final GitLabAPIRepositories gitLabAPIRepositories;
     private final GitLabAPIBuildVariables gitLabAPIBuildVariables;
     private final GitLabAPIGroups gitLabAPIGroups;
+    private final GitLabAPIMergeRequestDiscussion gitlabAPIMergeRequestDiscussion;
+    private final GitLabAPIMergeRequestDiff gitLabAPIMergeRequestDiff;
+    private final GitLabAPIMergeRequest gitLabAPIMergeRequest;
 
     private boolean ignoreCertificateErrors = false;
     private Proxy proxy = null;
@@ -57,6 +55,9 @@ public class GitLabAPI {
         this.gitLabAPIRepositories = new GitLabAPIRepositories(this);
         this.gitLabAPIBuildVariables = new GitLabAPIBuildVariables(this);
         this.gitLabAPIGroups = new GitLabAPIGroups(this);
+        this.gitlabAPIMergeRequestDiscussion = new GitLabAPIMergeRequestDiscussion(this);
+        this.gitLabAPIMergeRequestDiff = new GitLabAPIMergeRequestDiff(this);
+        this.gitLabAPIMergeRequest = new GitLabAPIMergeRequest(this);
     }
 
     public static GitLabAPI connect(String hostUrl, String apiToken) {
@@ -104,6 +105,10 @@ public class GitLabAPI {
 
     public GitLabHTTPRequestor dispatch() {
         return new GitLabHTTPRequestor(this).authenticate(apiToken, tokenType, authMethod).method("POST");
+    }
+
+    public GitLabHTTPRequestor update() {
+        return new GitLabHTTPRequestor(this).authenticate(apiToken, tokenType, authMethod).method("PUT");
     }
 
     public URL getAPIUrl(String tailAPIUrl) throws IOException {
@@ -163,5 +168,17 @@ public class GitLabAPI {
 
     public GitLabAPIGroups getGitLabAPIGroups() {
         return gitLabAPIGroups;
+    }
+
+    public GitLabAPIMergeRequestDiscussion getGitLabAPIMergeRequestDiscussion() {
+        return gitlabAPIMergeRequestDiscussion;
+    }
+
+    public GitLabAPIMergeRequestDiff getGitLabAPIMergeRequestDiff() {
+        return gitLabAPIMergeRequestDiff;
+    }
+
+    public GitLabAPIMergeRequest getGitLabAPIMergeRequest() {
+        return gitLabAPIMergeRequest;
     }
 }

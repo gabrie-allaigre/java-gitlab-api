@@ -5,6 +5,8 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.repositories.GitLabRepositoryTree;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -38,13 +40,8 @@ public class GitLabAPIRepositories {
      * @throws IOException
      */
     public Paged<GitLabRepositoryTree> getRepositoryTrees(Serializable projectId, Pagination pagination, String path, String refName) throws IOException {
-        Query q;
-        if (pagination != null) {
-            q = pagination.asQuery();
-        } else {
-            q = Query.newQuery();
-        }
-        String parameters = q.appendIf("refName", refName).appendIf("path", path).build();
+        Query query = QueryHelper.getQuery(pagination);
+        String parameters = query.appendIf("refName", refName).appendIf("path", path).build();
         String tailUrl = String.format("/projects/%s/repository/tree%s", gitLabAPI.sanitize(projectId), parameters);
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabRepositoryTree[].class);
     }

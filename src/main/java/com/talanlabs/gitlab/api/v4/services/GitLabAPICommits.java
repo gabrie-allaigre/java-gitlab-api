@@ -8,6 +8,8 @@ import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommit;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitComments;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitDiff;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitStatus;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -38,12 +40,7 @@ public class GitLabAPICommits {
      * @throws IOException
      */
     public Paged<GitLabCommit> getAllCommits(Serializable projectId, Pagination pagination) throws IOException {
-        Query query;
-        if (pagination != null) {
-            query = pagination.asQuery();
-        } else {
-            query = Query.newQuery();
-        }
+        Query query = QueryHelper.getQuery(pagination);
         String tailUrl = String.format("/projects/%s/repository/commits%s", gitLabAPI.sanitize(projectId), query.build());
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabCommit[].class);
     }
@@ -79,12 +76,7 @@ public class GitLabAPICommits {
      * @throws IOException
      */
     public Paged<GitLabCommitDiff> getCommitDiffs(Serializable projectId, String commitHash, Pagination pagination) throws IOException {
-        Query query;
-        if (pagination != null) {
-            query = pagination.asQuery();
-        } else {
-            query = Query.newQuery();
-        }
+        Query query = QueryHelper.getQuery(pagination);
         String tailUrl = String.format("/projects/%s/repository/commits/%s/diff%s", gitLabAPI.sanitize(projectId), commitHash, query.build());
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabCommitDiff[].class);
     }
@@ -103,12 +95,7 @@ public class GitLabAPICommits {
      * @throws IOException
      */
     public Paged<GitLabCommitComments> getCommitComments(Serializable projectId, String commitHash, Pagination pagination) throws IOException {
-        Query query;
-        if (pagination != null) {
-            query = pagination.asQuery();
-        } else {
-            query = Query.newQuery();
-        }
+        Query query = QueryHelper.getQuery(pagination);
         String tailUrl = String.format("/projects/%s/repository/commits/%s/comments%s", gitLabAPI.sanitize(projectId), commitHash, query.build());
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabCommitComments[].class);
     }
@@ -148,12 +135,7 @@ public class GitLabAPICommits {
      * @throws IOException
      */
     public Paged<GitLabCommitStatus> getCommitStatuses(Serializable projectId, String commitHash, Pagination pagination) throws IOException {
-        Query query;
-        if (pagination != null) {
-            query = pagination.asQuery();
-        } else {
-            query = Query.newQuery();
-        }
+        Query query = QueryHelper.getQuery(pagination);
         String tailUrl = String.format("/projects/%s/repository/commits/%s/statuses%s", gitLabAPI.sanitize(projectId), commitHash, query.build());
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabCommitStatus[].class);
     }

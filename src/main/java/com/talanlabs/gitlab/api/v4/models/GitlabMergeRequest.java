@@ -3,16 +3,28 @@ package com.talanlabs.gitlab.api.v4.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.talanlabs.gitlab.api.v4.models.commits.GitLabCommitDiff;
 import com.talanlabs.gitlab.api.v4.models.users.GitLabUser;
+
 import java.util.Date;
 import java.util.List;
 
 public class GitlabMergeRequest {
+
     public static final String URL = "/merge_requests";
+
+    public enum State {
+        @JsonProperty("opened")
+        OPENED,
+        @JsonProperty("closed")
+        CLOSED,
+        @JsonProperty("locked")
+        LOCKED,
+        @JsonProperty("merged")
+        MERGED
+    }
 
     private Integer id;
     private Integer iid;
     private String title;
-    private String state;
     private String description;
     private boolean closed;
     private boolean merged;
@@ -49,6 +61,8 @@ public class GitlabMergeRequest {
 
     @JsonProperty("created_at")
     private Date createdAt;
+
+    private State state;
 
     public Integer getId() {
         return id;
@@ -160,16 +174,12 @@ public class GitlabMergeRequest {
         this.assignee = assignee;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
-        if (state != null) {
-            closed = state.equals("closed");
-            merged = state.equals("merged");
-        }
     }
 
     public GitlabMilestone getMilestone() {

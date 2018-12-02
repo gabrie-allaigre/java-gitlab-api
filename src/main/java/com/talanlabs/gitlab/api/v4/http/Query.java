@@ -1,6 +1,7 @@
 package com.talanlabs.gitlab.api.v4.http;
 
 import com.talanlabs.gitlab.api.v4.models.GitlabAccessLevel;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -46,6 +47,34 @@ public class Query {
      */
     public Query append(final String name, final String value) throws UnsupportedEncodingException {
         params.add(new Tuple<String, Tuple<String, String>>(name, new Tuple<String, String>(value, URLEncoder.encode(value, "UTF-8"))));
+        return this;
+    }
+
+    /**
+     * Appends a int to the query
+     *
+     * @param name  Parameter name
+     * @param value Parameter value
+     * @return this
+     * @throws UnsupportedEncodingException
+     */
+    public Query append(final String name, final int value) throws UnsupportedEncodingException {
+        String valueAsString = Integer.toString(value);
+        params.add(new Tuple<String, Tuple<String, String>>(name, new Tuple<String, String>(valueAsString, valueAsString)));
+        return this;
+    }
+
+    /**
+     * Appends a boolean to the query
+     *
+     * @param name  Parameter name
+     * @param value Parameter value
+     * @return this
+     * @throws UnsupportedEncodingException
+     */
+    public Query append(String name, boolean value) {
+        String valueAsString = Boolean.toString(value);
+        params.add(new Tuple<String, Tuple<String, String>>(name, new Tuple<String, String>(valueAsString, valueAsString)));
         return this;
     }
 
