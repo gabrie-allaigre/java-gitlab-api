@@ -5,6 +5,8 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.users.GitLabUser;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 
 /**
@@ -47,13 +49,8 @@ public class GitLabAPIUsers {
      * @throws IOException
      */
     public Paged<GitLabUser> getUsers(String emailOrUsername, Pagination pagination) throws IOException {
-        Query q;
-        if (pagination != null) {
-            q = pagination.asQuery();
-        } else {
-            q = Query.newQuery();
-        }
-        String parameters = q.appendIf("search", emailOrUsername).build();
+        Query query = QueryHelper.getQuery(pagination);
+        String parameters = query.appendIf("search", emailOrUsername).build();
         String tailUrl = "/users" + parameters;
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabUser[].class);
     }

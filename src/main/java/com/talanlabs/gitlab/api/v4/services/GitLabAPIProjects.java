@@ -5,6 +5,8 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.projects.GitLabProject;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -83,13 +85,8 @@ public class GitLabAPIProjects {
     }
 
     private Paged<GitLabProject> getProjects(String prefix, Pagination pagination, Boolean archived, String orderBy, String sort, String search, Boolean ciEnabledFirst) throws IOException {
-        Query q;
-        if (pagination != null) {
-            q = pagination.asQuery();
-        } else {
-            q = Query.newQuery();
-        }
-        String parameters = q.appendIf("archived", archived).appendIf("order_by", orderBy).appendIf("sort", sort).appendIf("search", gitLabAPI.sanitize(search))
+        Query query = QueryHelper.getQuery(pagination);
+        String parameters = query.appendIf("archived", archived).appendIf("order_by", orderBy).appendIf("sort", sort).appendIf("search", gitLabAPI.sanitize(search))
                 .appendIf("ciEnabledFirst", ciEnabledFirst).build();
 
         String tailUrl = "/projects";
@@ -131,12 +128,7 @@ public class GitLabAPIProjects {
      * @throws IOException
      */
     public Paged<GitLabProject> getProjectsSearchByName(String query, Pagination pagination, String orderBy, String sort) throws IOException {
-        Query q;
-        if (pagination != null) {
-            q = pagination.asQuery();
-        } else {
-            q = Query.newQuery();
-        }
+        Query q = QueryHelper.getQuery(pagination);
         String parameters = q.appendIf("orderBy", orderBy).appendIf("sort", sort).build();
         String tailUrl = String.format("/projects/search/%s%s", gitLabAPI.sanitize(query), parameters);
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabProject[].class);

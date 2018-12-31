@@ -5,6 +5,8 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.builds.GitLabBuild;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -38,12 +40,7 @@ public class GitLabAPIBuilds {
      * @throws IOException
      */
     public Paged<GitLabBuild> getAllBuilds(Serializable projectId, Pagination pagination, String... scopes) throws IOException {
-        Query query;
-        if (pagination != null) {
-            query = pagination.asQuery();
-        } else {
-            query = Query.newQuery();
-        }
+        Query query = QueryHelper.getQuery(pagination);
 
         if (scopes != null && scopes.length > 0) {
             StringJoiner stringJoiner = new StringJoiner(",");

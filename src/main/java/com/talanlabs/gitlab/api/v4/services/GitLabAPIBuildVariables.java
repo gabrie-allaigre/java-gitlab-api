@@ -5,6 +5,8 @@ import com.talanlabs.gitlab.api.v4.GitLabAPI;
 import com.talanlabs.gitlab.api.v4.Pagination;
 import com.talanlabs.gitlab.api.v4.http.Query;
 import com.talanlabs.gitlab.api.v4.models.buildvariables.GitLabVariable;
+import com.talanlabs.gitlab.api.v4.utils.QueryHelper;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -34,13 +36,8 @@ public class GitLabAPIBuildVariables {
      * @throws IOException
      */
     public Paged<GitLabVariable> getProjectVariables(Serializable projectId, Pagination pagination) throws IOException {
-        Query q;
-        if (pagination != null) {
-            q = pagination.asQuery();
-        } else {
-            q = Query.newQuery();
-        }
-        String parameters = q.build();
+        Query query = QueryHelper.getQuery(pagination);
+        String parameters = query.build();
         String tailUrl = String.format("/projects/%s/variables%s", gitLabAPI.sanitize(projectId), parameters);
         return gitLabAPI.retrieve().toPaged(tailUrl, GitLabVariable[].class);
     }

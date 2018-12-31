@@ -19,6 +19,23 @@ public class GitlabNote {
     @JsonProperty("created_at")
     private Date createdAt;
 
+    private GitlabPosition position;
+
+    @JsonProperty("noteable_id")
+    private Integer noteableId;
+
+    @JsonProperty("noteableType")
+    private String noteable_type;
+
+    private boolean resolvable;
+    private boolean resolved;
+
+    @JsonProperty("resolved_by")
+    private GitLabUser resolvedBy;
+
+    @JsonProperty("noteable_iid")
+    private Integer noteableIid;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +98,61 @@ public class GitlabNote {
 
     public void setDownvote(boolean downvote) {
         this.downvote = downvote;
+    }
+
+    public GitlabPosition getPosition() {
+        return position;
+    }
+
+    public void setPosition(GitlabPosition position) {
+        this.position = position;
+    }
+
+    public Integer getNoteableId() {
+        return noteableId;
+    }
+
+    public void setNoteableId(Integer noteableId) {
+        this.noteableId = noteableId;
+    }
+
+    public String getNoteable_type() {
+        return noteable_type;
+    }
+
+    public void setNoteable_type(String noteable_type) {
+        this.noteable_type = noteable_type;
+    }
+
+    public boolean isResolvable() {
+        return resolvable;
+    }
+
+    public void setResolvable(boolean resolvable) {
+        this.resolvable = resolvable;
+    }
+
+    public boolean isResolved() {
+        return resolved;
+    }
+
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
+    }
+
+    public GitLabUser getResolvedBy() {
+        return resolvedBy;
+    }
+
+    public void setResolvedBy(GitLabUser resolvedBy) {
+        this.resolvedBy = resolvedBy;
+    }
+
+    public Integer getNoteableIid() {
+        return noteableIid;
+    }
+
+    public void setNoteableIid(Integer noteableIid) {
+        this.noteableIid = noteableIid;
     }
 }
