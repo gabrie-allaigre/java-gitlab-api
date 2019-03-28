@@ -111,6 +111,10 @@ public class GitLabAPI {
         return new GitLabHTTPRequestor(this).authenticate(apiToken, tokenType, authMethod).method("PUT");
     }
 
+    public GitLabHTTPRequestor delete() {
+        return new GitLabHTTPRequestor(this).authenticate(apiToken, tokenType, authMethod).method("DELETE");
+    }
+
     public URL getAPIUrl(String tailAPIUrl) throws IOException {
         if (!tailAPIUrl.startsWith("/")) {
             tailAPIUrl = "/" + tailAPIUrl;

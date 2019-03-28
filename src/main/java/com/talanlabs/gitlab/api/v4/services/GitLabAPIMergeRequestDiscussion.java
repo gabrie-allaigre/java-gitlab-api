@@ -69,16 +69,9 @@ public class GitLabAPIMergeRequestDiscussion {
      */
     public GitlabDiscussionStatus createDiscussion(Serializable projectId, Integer iid, GitlabDiscussion discussion) throws IOException {
         GitlabPosition position = discussion.getPosition();
-        String parameters = Query.newQuery()
-                .append("body", discussion.getBody())
-                .append("position[base_sha]", position.getBaseSha())
-                .append("position[start_sha]", position.getStartSha())
-                .append("position[head_sha]", position.getHeadSha())
-                .append("position[position_type]", position.getPositionType().getValue())
-                .append("position[new_line]", position.getNewLine())
-                .append("position[old_path]", position.getOldPath())
-                .append("position[new_path]", position.getNewPath())
-                .build();
+        String parameters = Query.newQuery().append("body", discussion.getBody()).append("position[base_sha]", position.getBaseSha()).append("position[start_sha]", position.getStartSha())
+                .append("position[head_sha]", position.getHeadSha()).append("position[position_type]", position.getPositionType().getValue()).append("position[new_line]", position.getNewLine())
+                .append("position[old_path]", position.getOldPath()).append("position[new_path]", position.getNewPath()).build();
 
         String tailUrl = String.format(BASE_URL + "%s", gitLabAPI.sanitize(projectId), iid, parameters);
 
@@ -94,8 +87,8 @@ public class GitLabAPIMergeRequestDiscussion {
      * @return @return Instance of {@link GitlabDiscussionStatus}
      * @throws IOException
      */
-    public GitlabDiscussionStatus resolveMergeRequestDiscussions(Serializable projectId, Integer mergeRequestIid, Integer discussionId) throws IOException {
-        return solveMergeRequestDiscussions(projectId, mergeRequestIid, discussionId, true);
+    public GitlabDiscussionStatus resolveMergeRequestDiscussion(Serializable projectId, Integer mergeRequestIid, Integer discussionId) throws IOException {
+        return solveMergeRequestDiscussion(projectId, mergeRequestIid, discussionId, true);
     }
 
     /**
@@ -107,8 +100,8 @@ public class GitLabAPIMergeRequestDiscussion {
      * @return @return Instance of {@link GitlabDiscussionStatus}
      * @throws IOException
      */
-    public GitlabDiscussionStatus unresolveMergeRequestDiscussions(Serializable projectId, Integer mergeRequestIid, Integer discussionId) throws IOException {
-        return solveMergeRequestDiscussions(projectId, mergeRequestIid, discussionId, false);
+    public GitlabDiscussionStatus unresolveMergeRequestDiscussion(Serializable projectId, Integer mergeRequestIid, Integer discussionId) throws IOException {
+        return solveMergeRequestDiscussion(projectId, mergeRequestIid, discussionId, false);
     }
 
     /**
@@ -123,10 +116,45 @@ public class GitLabAPIMergeRequestDiscussion {
      * @return Instance of {@link GitlabDiscussionStatus}
      * @throws IOException
      */
-    private GitlabDiscussionStatus solveMergeRequestDiscussions(Serializable projectId, Integer mergeRequestIid, Integer discussionId, boolean resolved) throws IOException {
+    private GitlabDiscussionStatus solveMergeRequestDiscussion(Serializable projectId, Integer mergeRequestIid, Integer discussionId, boolean resolved) throws IOException {
         String query = Query.newQuery().append("resolved", resolved).build();
         String tailUrl = String.format(BASE_URL + "/%d" + "%s", gitLabAPI.sanitize(projectId), mergeRequestIid, discussionId, query);
         return gitLabAPI.update().to(tailUrl, GitlabDiscussionStatus.class);
     }
 
+    /**
+     * Change body of a merge request discussion note
+     * <p>
+     * PUT /projects/:id/merge_requests/:merge_request_iid/discussions/:discussion_id/notes/:note_id
+     *
+     * @param projectId       (required) - The ID or URL-encoded path of the project
+     * @param mergeRequestIid (required) - The IID of a merge request
+     * @param discussionId    (required) - The ID of a discussion
+     * @param noteId          (required) - The ID of a note
+     * @param body            (required) - New body
+     * @return Instance of {@link GitlabDiscussionStatus}
+     * @throws IOException
+     */
+    private GitlabDiscussionStatus editMergeRequestDiscussionNote(Serializable projectId, Integer mergeRequestIid, Integer discussionId, Integer noteId, String body) throws IOException {
+        String query = Query.newQuery().append("body", body).build();
+        String tailUrl = String.format(BASE_URL + "/%d" + "/notes/%d" + "%s", gitLabAPI.sanitize(projectId), mergeRequestIid, discussionId, noteId, query);
+        return gitLabAPI.update().to(tailUrl, GitlabDiscussionStatus.class);
+    }
+
+    /**
+     * Delete note of a merge request discussion
+     * <p>
+     * DELETE /projects/:id/merge_requests/:merge_request_iid/discussions/:discussion_id/notes/:note_id
+     *
+     * @param projectId       (required) - The ID or URL-encoded path of the project
+     * @param mergeRequestIid (required) - The IID of a merge request
+     * @param discussionId    (required) - The ID of a discussion
+     * @param noteId          (required) - The ID of a note
+     * @return Instance of {@link GitlabDiscussionStatus}
+     * @throws IOException
+     */
+    private GitlabDiscussionStatus deleteMergeRequestDiscussionNote(Serializable projectId, Integer mergeRequestIid, Integer discussionId, Integer noteId) throws IOException {
+        String tailUrl = String.format(BASE_URL + "/%d" + "/notes/%d", gitLabAPI.sanitize(projectId), mergeRequestIid, discussionId, noteId);
+        return gitLabAPI.delete().to(tailUrl, GitlabDiscussionStatus.class);
+    }
 }
