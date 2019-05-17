@@ -10,6 +10,9 @@ public class GitlabGroup {
     private String name;
     private String path;
 
+    @JsonProperty("fullPath")
+    private String fullPath;
+
     @JsonProperty("ldap_cn")
     private String ldapCn;
 
@@ -38,6 +41,14 @@ public class GitlabGroup {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getFullPath() {
+        return fullPath;
+    }
+
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 
     public String getLdapCn() {
