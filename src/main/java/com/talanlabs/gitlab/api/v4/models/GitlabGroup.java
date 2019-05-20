@@ -10,7 +10,7 @@ public class GitlabGroup {
     private String name;
     private String path;
 
-    @JsonProperty("fullPath")
+    @JsonProperty("full_path")
     private String fullPath;
 
     @JsonProperty("ldap_cn")
