@@ -19,7 +19,7 @@
         <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
-        <jackson.version>2.9.7</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
     </properties>
     <organization>
         <name>Talanlabs</name>
